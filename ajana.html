@@ -3,1776 +3,254 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Ajana Shipping Co. | Whole-Page Scroll-Driven Reveal Landing Page</title>
-<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@200;300;400;500;600;700&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<title>Ajana Shipping Co. | Scroll-Driven Reveal Engine</title>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@200;300;400;500;600&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
 :root {
-  --navy: #0A1B3D;
-  --navy-deep: #050D21;
-  --navy-light: #13295A;
-  --yel: #FFC72C;
-  --yel-glow: rgba(255, 199, 44, 0.4);
-  --paper: #F2F3F5;
-  --grey: #D8DCE3;
-  --ink: #0A1B3D;
-  --glass-bg: rgba(255, 255, 255, 0.08);
-  --glass-border: rgba(255, 255, 255, 0.18);
+  --navy: #0A1B3D; --navy-deep: #050D21; --navy-light: #13295A;
+  --yel: #FFC72C; --yel-glow: rgba(255, 199, 44, 0.4);
+  --paper: #F2F3F5; --grey: #D8DCE3; --ink: #0A1B3D;
+  --glass-bg: rgba(255, 255, 255, 0.08); --glass-border: rgba(255, 255, 255, 0.18);
   box-sizing: border-box;
 }
-
-*, *::before, *::after {
-  box-sizing: inherit;
-  margin: 0;
-  padding: 0;
-  font-weight: 300;
-}
-
-html {
-  scroll-behavior: smooth;
-  background: var(--navy-deep);
-  color: var(--paper);
-  font-family: 'Hanken Grotesk', system-ui, -apple-system, sans-serif;
-}
-
-body {
-  overflow-x: hidden;
-  line-height: 1.5;
-  background: var(--navy-deep);
-}
-
-/* Dots Background Pattern */
-.dots {
-  background-image: radial-gradient(circle, rgba(10, 27, 61, 0.45) 1.2px, transparent 1.6px);
-  background-size: 12px 12px;
-}
-.dots.dk {
-  background-image: radial-gradient(circle, rgba(255, 199, 44, 0.35) 1.2px, transparent 1.6px);
-  background-size: 12px 12px;
-}
-
-/* Scroll Progress Bar at Top of Page */
-.page-progress-bar {
-  position: fixed;
-  top: 0;
-  left: 0;
-  height: 3px;
-  background: var(--yel);
-  box-shadow: 0 0 10px var(--yel);
-  z-index: 1001;
-  width: 0%;
-  transition: width 0.05s linear;
-}
-
-/* Navigation */
-nav {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  z-index: 50;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 16px clamp(20px, 4vw, 50px);
-  background: rgba(5, 13, 33, 0.85);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-  font-size: 14px;
-  transition: transform 0.3s ease, background 0.3s ease;
-}
-
-nav .logo {
-  display: flex;
-  gap: 10px;
-  align-items: center;
-  background: var(--paper);
-  color: var(--navy);
-  padding: 8px 14px;
-  border-radius: 4px;
-  font-weight: 600;
-  text-decoration: none;
-  letter-spacing: -0.02em;
-}
-
-nav .logo i {
-  width: 14px;
-  height: 14px;
-  background: var(--yel);
-  display: block;
-  clip-path: polygon(0 100%, 50% 0, 100% 100%, 50% 70%);
-}
-
-nav .links {
-  display: flex;
-  align-items: center;
-  gap: 28px;
-}
-
-nav a {
-  color: var(--paper);
-  text-decoration: none;
-  font-size: 14px;
-  opacity: 0.85;
-  transition: opacity 0.2s, color 0.2s;
-}
-
-nav a:hover {
-  opacity: 1;
-  color: var(--yel);
-}
-
-nav .cta {
-  background: var(--yel);
-  color: var(--navy);
-  padding: 10px 22px;
-  border-radius: 4px;
-  font-weight: 500;
-  opacity: 1;
-  transition: transform 0.2s, box-shadow 0.2s;
-}
-
-nav .cta:hover {
-  transform: translateY(-1px);
-  box-shadow: 0 4px 20px var(--yel-glow);
-}
-
-/* Button Component */
-.btn {
-  display: inline-flex;
-  gap: 12px;
-  align-items: center;
-  border: 1px solid currentColor;
-  padding: 12px 24px;
-  font-size: 14px;
-  font-weight: 500;
-  text-decoration: none;
-  color: inherit;
-  border-radius: 4px;
-  width: max-content;
-  transition: background 0.3s, color 0.3s, border-color 0.3s, transform 0.3s;
-  cursor: pointer;
-}
-
-.btn:hover {
-  background: var(--yel);
-  color: var(--navy);
-  border-color: var(--yel);
-  transform: translateY(-2px);
-}
-
-/* Hero Section */
-.hero {
-  min-height: 100vh;
-  display: grid;
-  grid-template-columns: 1.1fr 0.9fr;
-  position: relative;
-  overflow: hidden;
-  background: var(--paper);
-  color: var(--navy);
-}
-
-.hero .l {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-  padding: 120px clamp(20px, 4vw, 50px) 8vh;
-}
-
-.hero .l .dots {
-  position: absolute;
-  inset: 0;
-  opacity: 0.4;
-}
-
-h1 {
-  font-size: clamp(60px, 12vw, 190px);
-  line-height: 0.88;
-  letter-spacing: -0.05em;
-  font-weight: 300;
-  position: relative;
-  z-index: 2;
-}
-
-h1 .ln {
-  display: block;
-  overflow: hidden;
-}
-
-h1 .ln > span {
-  display: block;
-  font-weight: 300;
-}
-
-.hero-subtitle {
-  margin-top: 24px;
-  font-size: clamp(16px, 1.8vw, 22px);
-  max-width: 44ch;
-  opacity: 0.85;
-  position: relative;
-  z-index: 2;
-}
-
-.scroll-indicator {
-  position: absolute;
-  bottom: 30px;
-  left: clamp(20px, 4vw, 50px);
-  z-index: 5;
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 11px;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: var(--navy);
-  opacity: 0.7;
-}
-
-.scroll-indicator .line {
-  width: 40px;
-  height: 2px;
-  background: currentColor;
-  position: relative;
-  overflow: hidden;
-}
-
-.scroll-indicator .line::after {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: -100%;
-  width: 100%;
-  height: 100%;
-  background: var(--yel);
-  animation: scrollLine 2s infinite;
-}
-
-@keyframes scrollLine {
-  0% { left: -100%; }
-  50% { left: 0%; }
-  100% { left: 100%; }
-}
-
-.hero .r {
-  display: grid;
-  grid-template-rows: 1fr 1fr;
-}
-
-.hero .r .a {
-  background: var(--navy);
-  color: var(--paper);
-  padding: 130px clamp(20px, 4vw, 50px) 40px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-}
-
-.hero .r .b {
-  background: var(--yel);
-  color: var(--navy);
-  padding: 40px clamp(20px, 4vw, 50px);
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-}
-
-.tag {
-  font-size: clamp(32px, 4.5vw, 72px);
-  letter-spacing: -0.03em;
-  line-height: 1.05;
-  font-weight: 300;
-}
-
-.rwp {
-  display: block;
-  overflow: hidden;
-}
-
-/* Marquee Bar */
-.mq {
-  background: var(--navy-deep);
-  color: var(--yel);
-  overflow: hidden;
-  white-space: nowrap;
-  padding: 20px 0;
-  font-size: clamp(20px, 3vw, 36px);
-  letter-spacing: -0.02em;
-  border-top: 1px solid rgba(255, 255, 255, 0.08);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-}
-
-.mq div {
-  display: inline-block;
-  will-change: transform;
-}
-
-.mq span {
-  margin: 0 30px;
-}
-
-.mq em {
-  font-style: normal;
-  opacity: 0.35;
-  margin-left: 30px;
-}
-
-/* Main Section Layout */
-section {
-  padding: clamp(60px, 9vw, 140px) clamp(20px, 4vw, 50px);
-}
-
-h2 {
-  font-size: clamp(42px, 7.5vw, 120px);
-  line-height: 0.92;
-  letter-spacing: -0.04em;
-  font-weight: 300;
-  margin-bottom: 0.4em;
-}
-
-/* CINEMATIC CANVAS SCROLL STORY SECTION */
-.sequence-wrap {
-  position: relative;
-  height: 450vh;
-  background: var(--navy-deep);
-  color: var(--paper);
-}
-
-.sequence-sticky {
-  position: sticky;
-  top: 0;
-  height: 100vh;
-  min-height: 640px;
-  overflow: hidden;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.sequence-canvas {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  display: block;
-}
-
-.sequence-overlay {
-  position: absolute;
-  inset: 0;
-  background: radial-gradient(circle at 70% 50%, rgba(10, 27, 61, 0.1), rgba(5, 13, 33, 0.88) 75%);
-  pointer-events: none;
-}
-
-.sequence-progress {
-  position: absolute;
-  left: clamp(20px, 4vw, 50px);
-  top: 50%;
-  transform: translateY(-50%);
-  width: 3px;
-  height: 180px;
-  background: rgba(255, 255, 255, 0.15);
-  border-radius: 2px;
-  z-index: 10;
-}
-
-.sequence-progress i {
-  display: block;
-  width: 100%;
-  height: 0%;
-  background: var(--yel);
-  box-shadow: 0 0 10px var(--yel);
-  border-radius: 2px;
-}
-
-.sequence-copy {
-  position: relative;
-  z-index: 10;
-  width: min(1200px, calc(100% - 100px));
-  margin-left: clamp(60px, 10vw, 160px);
-  pointer-events: none;
-}
-
-.sequence-step {
-  position: absolute;
-  left: 0;
-  top: 50%;
-  transform: translateY(-50%);
-  width: min(650px, 75vw);
-  opacity: 0;
-  transition: transform 0.1s ease-out;
-}
-
-.sequence-index {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 11px;
-  text-transform: uppercase;
-  color: var(--yel);
-  letter-spacing: 0.15em;
-  margin-bottom: 16px;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.sequence-index::before {
-  content: '';
-  display: inline-block;
-  width: 8px;
-  height: 8px;
-  background: var(--yel);
-  border-radius: 50%;
-}
-
-.sequence-step h2 {
-  font-size: clamp(48px, 7.5vw, 115px);
-  line-height: 0.85;
-  letter-spacing: -0.06em;
-  font-weight: 300;
-  margin: 0 0 20px;
-}
-
-.sequence-step p {
-  font-size: clamp(17px, 1.6vw, 22px);
-  line-height: 1.35;
-  max-width: 500px;
-  opacity: 0.9;
-}
-
-.sequence-card {
-  position: absolute;
-  right: clamp(20px, 4vw, 60px);
-  bottom: clamp(30px, 5vw, 60px);
-  z-index: 15;
-  width: min(340px, calc(100% - 40px));
-  padding: 22px;
-  border: 1px solid var(--glass-border);
-  background: rgba(10, 27, 61, 0.65);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border-radius: 8px;
-  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
-}
-
-.sequence-card .spec {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
-  padding: 10px 0;
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 10px;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-}
-
-.sequence-card .spec:last-child {
-  border-bottom: 0;
-}
-
-.sequence-card b {
-  font-weight: 500;
-  color: var(--yel);
-}
-
-/* ========================================================
-   SCROLL-BASED INTERACTIVE BENTO STACKING & SCRUBBING
-   ======================================================== */
-.bento-scroll-wrap {
-  position: relative;
-  height: 420vh;
-  background: var(--navy-deep);
-  color: var(--paper);
-  border-top: 1px solid rgba(255, 255, 255, 0.08);
-}
-
-.bento-sticky-container {
-  position: sticky;
-  top: 0;
-  height: 100vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  padding: 40px clamp(20px, 4vw, 50px);
-  overflow: hidden;
-}
-
-.bento-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-end;
-  margin-bottom: 30px;
-}
-
-.bento-header h2 {
-  margin-bottom: 0;
-}
-
-.bento-scroll-scrubber {
-  display: flex;
-  align-items: center;
-  gap: 14px;
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 11px;
-  color: var(--yel);
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
-}
-
-.bento-scroll-bar {
-  width: 120px;
-  height: 3px;
-  background: rgba(255, 255, 255, 0.15);
-  border-radius: 3px;
-  overflow: hidden;
-}
-
-.bento-scroll-bar-fill {
-  width: 0%;
-  height: 100%;
-  background: var(--yel);
-  box-shadow: 0 0 8px var(--yel);
-  transition: width 0.1s ease-out;
-}
-
-/* Grid Container for Bento Cards */
-.bento-grid {
-  display: grid;
-  grid-template-columns: repeat(12, 1fr);
-  grid-auto-rows: minmax(140px, auto);
-  gap: 16px;
-  position: relative;
-  perspective: 1200px;
-}
-
-/* Bento Tile Card Styles */
-.t {
-  position: relative;
-  overflow: hidden;
-  padding: 30px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  border-radius: 12px;
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  background: rgba(19, 41, 90, 0.4);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s, border-color 0.4s, filter 0.4s;
-  will-change: transform, opacity;
-  transform-style: preserve-3d;
-}
-
-.t:hover {
-  border-color: var(--yel);
-  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4), 0 0 30px rgba(255, 199, 44, 0.15);
-}
-
-.t h3 {
-  font-size: clamp(26px, 2.6vw, 40px);
-  letter-spacing: -0.03em;
-  line-height: 1.05;
-  font-weight: 300;
-}
-
-.t p {
-  font-size: 15px;
-  max-width: 42ch;
-  opacity: 0.85;
-  line-height: 1.4;
-}
-
-.t .n {
-  font-size: clamp(64px, 8.5vw, 140px);
-  letter-spacing: -0.05em;
-  line-height: 0.85;
-  font-weight: 300;
-  color: var(--paper);
-}
-
-.t small {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 11px;
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
-  opacity: 0.75;
-}
-
-/* Color Variants */
-.y {
-  background: var(--yel);
-  color: var(--navy);
-  border-color: rgba(10, 27, 61, 0.2);
-}
-
-.y .n {
-  color: var(--navy);
-}
-
-.y small {
-  color: var(--navy);
-  opacity: 0.8;
-}
-
-.d {
-  background: var(--navy);
-  color: var(--paper);
-}
-
-.g {
-  background: rgba(216, 220, 227, 0.12);
-  color: var(--paper);
-}
-
-.d2 {
-  background: var(--navy-light);
-  color: var(--paper);
-}
-
-/* Grid Column Spans */
-.c3 { grid-column: span 3; }
-.c4 { grid-column: span 4; }
-.c5 { grid-column: span 5; }
-.c6 { grid-column: span 6; }
-.c7 { grid-column: span 7; }
-.c8 { grid-column: span 8; }
-.c12 { grid-column: span 12; }
-.r2 { grid-row: span 2; }
-
-/* Bento Graphics & Live Canvas Visuals */
-.t svg {
-  position: absolute;
-  right: 10px;
-  bottom: 10px;
-  width: 55%;
-  opacity: 0.85;
-  pointer-events: none;
-}
-
-.t ul {
-  list-style: none;
-  font-size: 14px;
-  display: grid;
-  gap: 8px;
-  margin-top: 14px;
-}
-
-.t li {
-  display: flex;
-  align-items: center;
-}
-
-.t li::before {
-  content: "";
-  display: inline-block;
-  width: 6px;
-  height: 6px;
-  background: var(--yel);
-  margin-right: 10px;
-  border-radius: 50%;
-}
-
-.y li::before {
-  background: var(--navy);
-}
-
-/* Live Container Telemetry Visualizer inside Bento */
-.telemetry-container {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 8px;
-  margin-top: 16px;
-  padding: 12px;
-  background: rgba(5, 13, 33, 0.5);
-  border-radius: 6px;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 10px;
-}
-
-.telemetry-item label {
-  display: block;
-  opacity: 0.5;
-  text-transform: uppercase;
-}
-
-.telemetry-item span {
-  font-size: 12px;
-  color: var(--yel);
-  font-weight: 500;
-}
-
-/* ========================================================
-   WHOLE-PAGE SCROLL REVEAL ANIMATION CLASSES
-   ======================================================== */
-.reveal-up {
-  opacity: 0;
-  transform: translateY(50px);
-  transition: opacity 0.9s cubic-bezier(0.16, 1, 0.3, 1), transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
-  will-change: opacity, transform;
-}
-
-.reveal-curtain {
-  clip-path: inset(100% 0% 0% 0%);
-  transition: clip-path 1.1s cubic-bezier(0.16, 1, 0.3, 1);
-  will-change: clip-path;
-}
-
-.reveal-scale {
-  opacity: 0;
-  transform: scale(0.92) translateY(30px);
-  transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
-  will-change: opacity, transform;
-}
-
-.is-revealed {
-  opacity: 1 !important;
-  transform: none !important;
-  clip-path: inset(0% 0% 0% 0%) !important;
-}
-
-/* Word / Character Split Classes */
-.w {
-  display: inline-block;
-  overflow: hidden;
-  vertical-align: top;
-  padding-bottom: 0.1em;
-  margin-bottom: -0.1em;
-}
-
-.ch {
-  display: inline-block;
-  will-change: transform;
-}
-
-/* Trade Lanes Section */
-.route {
-  background: var(--navy-deep);
-  color: var(--paper);
-  position: relative;
-  overflow: hidden;
-  border-top: 1px solid rgba(255, 255, 255, 0.08);
-}
-
-.route svg {
-  width: 100%;
-  height: auto;
-  display: block;
-  margin-top: 30px;
-}
-
-.lanes {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 1px;
-  background: rgba(255, 255, 255, 0.15);
-  margin-top: 50px;
-  border-radius: 8px;
-  overflow: hidden;
-}
-
-.lanes div {
-  background: var(--navy);
-  padding: 28px 22px;
-  font-size: 15px;
-  transition: transform 0.4s ease, background 0.4s ease;
-}
-
-.lanes div:hover {
-  background: var(--navy-light);
-  transform: translateY(-4px);
-}
-
-.lanes b {
-  display: block;
-  font-size: 26px;
-  letter-spacing: -0.02em;
-  color: var(--yel);
-  margin-bottom: 8px;
-  font-weight: 400;
-}
-
-/* CTA Section */
-.cta-big {
-  background: var(--yel);
-  color: var(--navy);
-  text-align: left;
-  position: relative;
-  overflow: hidden;
-  padding: clamp(80px, 12vw, 160px) clamp(20px, 4vw, 50px);
-}
-
-.cta-big h2 {
-  margin: 0;
-  position: relative;
-  z-index: 2;
-  color: var(--navy);
-}
-
-.cta-big .dots {
-  position: absolute;
-  inset: 0;
-  opacity: 0.25;
-}
-
-.cta-big .btn {
-  margin-top: 36px;
-  position: relative;
-  z-index: 2;
-  background: var(--navy);
-  color: var(--paper);
-  border-color: var(--navy);
-  padding: 18px 36px;
-  font-size: 16px;
-}
-
-.cta-big .btn:hover {
-  background: var(--navy-light);
-  color: var(--yel);
-  border-color: var(--navy-light);
-  box-shadow: 0 10px 30px rgba(10, 27, 61, 0.4);
-}
-
-/* Footer */
-footer {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  gap: 30px;
-  padding: 50px clamp(20px, 4vw, 50px);
-  font-size: 14px;
-  background: var(--paper);
-  color: var(--navy);
-  border-top: 1px solid var(--grey);
-}
-
-footer a {
-  color: inherit;
-  display: block;
-  text-decoration: none;
-  margin-bottom: 8px;
-  transition: opacity 0.2s, transform 0.2s;
-}
-
-footer a:hover {
-  opacity: 0.7;
-  transform: translateX(4px);
-}
-
-/* Cursor & Focus */
-:focus-visible {
-  outline: 2px solid var(--yel);
-  outline-offset: 4px;
-}
-
-#cur {
-  position: fixed;
-  left: -10px;
-  top: -10px;
-  width: 20px;
-  height: 20px;
-  border-radius: 50%;
-  background: var(--yel);
-  mix-blend-mode: difference;
-  pointer-events: none;
-  z-index: 999;
-}
-
-#ld {
-  position: fixed;
-  inset: 0;
-  z-index: 1000;
-  background: var(--navy-deep);
-  color: var(--yel);
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-  padding: 5vw;
-}
-
-.ldn {
-  font-size: clamp(80px, 18vw, 260px);
-  line-height: 0.85;
-  letter-spacing: -0.05em;
-  font-weight: 300;
-}
-
-.ldb {
-  height: 3px;
-  background: rgba(255, 255, 255, 0.15);
-  margin: 24px 0;
-  border-radius: 2px;
-  overflow: hidden;
-}
-
-.ldb i {
-  display: block;
-  height: 100%;
-  width: 0;
-  background: var(--yel);
-  box-shadow: 0 0 12px var(--yel);
-}
-
-#ld p {
-  color: var(--paper);
-  font-size: 14px;
-  font-family: 'JetBrains Mono', monospace;
-  letter-spacing: 0.1em;
-}
-
-/* Fallback for Mobile (< 900px) */
-.sequence-fallback {
-  display: none;
-}
-
-.sequence-fallback-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 1px;
-  background: var(--navy);
-}
-
-.sequence-fallback-card {
-  min-height: 280px;
-  padding: 30px;
-  background: var(--paper);
-  color: var(--navy);
-}
-
-.sequence-fallback-card:nth-child(even) {
-  background: var(--yel);
-}
-
-.sequence-fallback-card h3 {
-  font-size: 36px;
-  line-height: 0.9;
-  letter-spacing: -0.05em;
-  font-weight: 300;
-  margin: 0 0 30px;
-}
-
-@media(max-width: 900px) {
-  .hero, .about {
-    grid-template-columns: 1fr;
-  }
-  .hero .l {
-    min-height: 50vh;
-  }
-  .sequence-wrap {
-    height: auto;
-    background: var(--paper);
-    color: var(--navy);
-  }
-  .sequence-sticky {
-    display: none;
-  }
-  .sequence-fallback {
-    display: block;
-  }
-  .sequence-fallback-grid {
-    grid-template-columns: 1fr;
-  }
-  .bento-scroll-wrap {
-    height: auto;
-  }
-  .bento-sticky-container {
-    position: relative;
-    height: auto;
-    padding: 60px 20px;
-  }
-  .bento-grid > * {
-    grid-column: span 12 !important;
-    grid-row: span 1 !important;
-    transform: none !important;
-    opacity: 1 !important;
-  }
-  .lanes {
-    grid-template-columns: 1fr 1fr;
-  }
-  footer {
-    grid-template-columns: 1fr;
-  }
-  nav .links a:not(.cta) {
-    display: none;
-  }
-}
-
-@media(prefers-reduced-motion: reduce) {
-  * {
-    animation: none !important;
-    transition: none !important;
-  }
-}
+*, *::before, *::after { box-sizing: inherit; margin: 0; padding: 0; font-weight: 300; }
+html { scroll-behavior: smooth; background: var(--navy-deep); color: var(--paper); font-family: 'Hanken Grotesk', system-ui, sans-serif; }
+body { overflow-x: hidden; line-height: 1.5; background: var(--navy-deep); }
+
+.page-progress-bar { position: fixed; top: 0; left: 0; height: 3px; background: var(--yel); box-shadow: 0 0 10px var(--yel); z-index: 1001; width: 0%; }
+.dots { background-image: radial-gradient(circle, rgba(10,27,61,0.45) 1.2px, transparent 1.6px); background-size: 12px 12px; }
+.dots.dk { background-image: radial-gradient(circle, rgba(255,199,44,0.35) 1.2px, transparent 1.6px); }
+
+nav { position: fixed; top: 0; left: 0; right: 0; z-index: 50; display: flex; justify-content: space-between; align-items: center; padding: 16px clamp(20px, 4vw, 50px); background: rgba(5,13,33,0.85); backdrop-filter: blur(16px); border-bottom: 1px solid rgba(255,255,255,0.08); font-size: 14px; }
+nav .logo { display: flex; gap: 10px; align-items: center; background: var(--paper); color: var(--navy); padding: 8px 14px; border-radius: 4px; font-weight: 600; text-decoration: none; }
+nav .logo i { width: 14px; height: 14px; background: var(--yel); clip-path: polygon(0 100%, 50% 0, 100% 100%, 50% 70%); }
+nav a { color: var(--paper); text-decoration: none; font-size: 14px; opacity: 0.85; margin-left: 20px; }
+nav .cta { background: var(--yel); color: var(--navy); padding: 9px 20px; border-radius: 4px; font-weight: 500; opacity: 1; }
+
+.btn { display: inline-flex; gap: 12px; align-items: center; border: 1px solid currentColor; padding: 12px 24px; font-size: 14px; text-decoration: none; color: inherit; border-radius: 4px; transition: 0.3s; cursor: pointer; }
+.btn:hover { background: var(--yel); color: var(--navy); border-color: var(--yel); transform: translateY(-2px); }
+
+.hero { min-height: 100vh; display: grid; grid-template-columns: 1.1fr 0.9fr; position: relative; overflow: hidden; background: var(--paper); color: var(--navy); }
+.hero .l { position: relative; display: flex; flex-direction: column; justify-content: flex-end; padding: 120px clamp(20px, 4vw, 50px) 8vh; }
+h1 { font-size: clamp(60px, 12vw, 190px); line-height: 0.88; letter-spacing: -0.05em; font-weight: 300; }
+h1 .ln { display: block; overflow: hidden; }
+.hero .r { display: grid; grid-template-rows: 1fr 1fr; }
+.hero .r .a { background: var(--navy); color: var(--paper); padding: 130px clamp(20px, 4vw, 50px) 40px; display: flex; flex-direction: column; justify-content: space-between; }
+.hero .r .b { background: var(--yel); color: var(--navy); padding: 40px clamp(20px, 4vw, 50px); display: flex; flex-direction: column; justify-content: space-between; }
+.tag { font-size: clamp(32px, 4.5vw, 72px); letter-spacing: -0.03em; line-height: 1.05; }
+.mq { background: var(--navy-deep); color: var(--yel); overflow: hidden; white-space: nowrap; padding: 20px 0; font-size: clamp(20px, 3vw, 36px); border-top: 1px solid rgba(255,255,255,0.08); border-bottom: 1px solid rgba(255,255,255,0.08); }
+.mq div { display: inline-block; } .mq span { margin: 0 30px; } .mq em { font-style: normal; opacity: 0.35; margin-left: 30px; }
+
+section { padding: clamp(60px, 9vw, 140px) clamp(20px, 4vw, 50px); }
+h2 { font-size: clamp(42px, 7.5vw, 120px); line-height: 0.92; letter-spacing: -0.04em; margin-bottom: 0.4em; }
+
+/* CANVAS STORY SECTION */
+.sequence-wrap { position: relative; height: 450vh; background: var(--navy-deep); color: var(--paper); }
+.sequence-sticky { position: sticky; top: 0; height: 100vh; overflow: hidden; display: flex; align-items: center; justify-content: center; }
+.sequence-canvas { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+.sequence-progress { position: absolute; left: clamp(20px, 4vw, 50px); top: 50%; transform: translateY(-50%); width: 3px; height: 180px; background: rgba(255,255,255,0.15); }
+.sequence-progress i { display: block; width: 100%; height: 0%; background: var(--yel); box-shadow: 0 0 10px var(--yel); }
+.sequence-step { position: absolute; left: 0; top: 50%; transform: translateY(-50%); width: min(650px, 75vw); opacity: 0; margin-left: clamp(60px, 10vw, 160px); }
+.sequence-card { position: absolute; right: clamp(20px, 4vw, 60px); bottom: clamp(30px, 5vw, 60px); width: min(340px, calc(100% - 40px)); padding: 22px; border: 1px solid var(--glass-border); background: rgba(10,27,61,0.65); backdrop-filter: blur(20px); border-radius: 8px; }
+.sequence-card .spec { display: flex; justify-content: space-between; border-bottom: 1px solid rgba(255,255,255,0.12); padding: 10px 0; font-family: 'JetBrains Mono', monospace; font-size: 10px; }
+
+/* SCROLL-BASED BENTO STACKING */
+.bento-scroll-wrap { position: relative; height: 420vh; background: var(--navy-deep); color: var(--paper); border-top: 1px solid rgba(255,255,255,0.08); }
+.bento-sticky-container { position: sticky; top: 0; height: 100vh; display: flex; flex-direction: column; justify-content: center; padding: 40px clamp(20px, 4vw, 50px); overflow: hidden; }
+.bento-header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 30px; }
+.bento-grid { display: grid; grid-template-columns: repeat(12, 1fr); grid-auto-rows: minmax(140px, auto); gap: 16px; perspective: 1200px; }
+.t { position: relative; overflow: hidden; padding: 30px; display: flex; flex-direction: column; justify-content: space-between; border-radius: 12px; border: 1px solid rgba(255,255,255,0.12); background: rgba(19,41,90,0.4); backdrop-filter: blur(16px); transition: 0.4s; transform-style: preserve-3d; }
+.t:hover { border-color: var(--yel); box-shadow: 0 15px 40px rgba(0,0,0,0.4); }
+.t h3 { font-size: clamp(26px, 2.6vw, 40px); letter-spacing: -0.03em; }
+.t .n { font-size: clamp(64px, 8.5vw, 140px); letter-spacing: -0.05em; line-height: 0.85; }
+.y { background: var(--yel); color: var(--navy); } .d { background: var(--navy); } .g { background: rgba(216,220,227,0.12); } .d2 { background: var(--navy-light); }
+.c3 { grid-column: span 3; } .c4 { grid-column: span 4; } .c6 { grid-column: span 6; } .c8 { grid-column: span 8; } .r2 { grid-row: span 2; }
+.telemetry-container { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-top: 16px; padding: 12px; background: rgba(5,13,33,0.5); border-radius: 6px; font-family: 'JetBrains Mono', monospace; font-size: 10px; }
+
+/* REVEAL UTILITIES */
+.reveal-up { opacity: 0; transform: translateY(50px); transition: 0.9s cubic-bezier(0.16, 1, 0.3, 1); }
+.reveal-curtain { clip-path: inset(100% 0% 0% 0%); transition: 1.1s cubic-bezier(0.16, 1, 0.3, 1); }
+.reveal-scale { opacity: 0; transform: scale(0.92) translateY(30px); transition: 0.8s cubic-bezier(0.16, 1, 0.3, 1); }
+.is-revealed { opacity: 1 !important; transform: none !important; clip-path: inset(0% 0% 0% 0%) !important; }
+
+.route { background: var(--navy-deep); color: var(--paper); border-top: 1px solid rgba(255,255,255,0.08); }
+.lanes { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: rgba(255,255,255,0.15); margin-top: 50px; border-radius: 8px; overflow: hidden; }
+.lanes div { background: var(--navy); padding: 28px 22px; } .lanes b { font-size: 26px; color: var(--yel); display: block; margin-bottom: 8px; }
+.cta-big { background: var(--yel); color: var(--navy); padding: clamp(80px, 12vw, 160px) clamp(20px, 4vw, 50px); }
+footer { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 30px; padding: 50px clamp(20px, 4vw, 50px); background: var(--paper); color: var(--navy); }
+#cur { position: fixed; left: -10px; top: -10px; width: 20px; height: 20px; border-radius: 50%; background: var(--yel); mix-blend-mode: difference; pointer-events: none; z-index: 999; }
+#ld { position: fixed; inset: 0; z-index: 1000; background: var(--navy-deep); color: var(--yel); display: flex; flex-direction: column; justify-content: flex-end; padding: 5vw; }
+.ldn { font-size: clamp(80px, 18vw, 260px); line-height: 0.85; }
+.ldb { height: 3px; background: rgba(255,255,255,0.15); margin: 24px 0; border-radius: 2px; } .ldb i { display: block; height: 100%; width: 0; background: var(--yel); }
 </style>
 </head>
 <body>
 
-<!-- Whole Page Scroll Progress Bar -->
 <div class="page-progress-bar" id="pageProgressBar"></div>
 
-<!-- Navigation -->
-<nav id="mainNav">
+<nav>
   <a class="logo" href="#"><i></i>Ajana Shipping Co.</a>
-  <div class="links">
-    <a href="#about">About</a>
-    <a href="#scroll-story">Story</a>
-    <a href="#bento-experience">Capabilities</a>
-    <a href="#lanes">Trade Lanes</a>
-    <a class="cta" href="#contact">Get a Quote</a>
-  </div>
+  <div><a href="#about">About</a><a href="#scroll-story">Story</a><a href="#bento-experience">Capabilities</a><a href="#lanes">Lanes</a><a class="cta" href="#contact">Get Quote</a></div>
 </nav>
 
-<!-- Hero Section -->
 <header class="hero">
   <div class="l">
     <div class="dots" id="d1"></div>
-    <h1>
-      <span class="ln"><span>Ajana</span></span>
-      <span class="ln"><span>Shipping</span></span>
-    </h1>
-    <p class="hero-subtitle rv">Next-generation freight forwarding, ocean & air logistics connecting the Gulf to global trade corridors.</p>
-    <div class="scroll-indicator">
-      <div class="line"></div>
-      <span>Scroll to Explore</span>
-    </div>
+    <h1><span class="ln"><span>Ajana</span></span><span class="ln"><span>Shipping</span></span></h1>
+    <p class="hero-subtitle rv" style="margin-top:24px; font-size:clamp(16px,1.8vw,22px)">Next-gen freight forwarding connecting the Gulf to global trade corridors.</p>
   </div>
   <div class="r">
-    <div class="a reveal-curtain">
-      <p class="rv">Full-container FCL, consolidation LCL, air cargo & customs clearance operating from Dubai, UAE.</p>
-      <div><a class="btn" href="#contact">Start a Shipment &rarr;</a></div>
-    </div>
-    <div class="b reveal-curtain">
-      <p class="rv">Dubai &middot; Jebel Ali &middot; Sharjah &middot; Abu Dhabi</p>
-      <div class="tag">Moving cargo,<span class="rwp"><span id="rw" style="display:inline-block">on time.</span></span></div>
-    </div>
+    <div class="a reveal-curtain"><p class="rv">Full-container FCL, LCL consolidation, air cargo & customs operating from Dubai, UAE.</p><a class="btn" href="#contact">Start shipment &rarr;</a></div>
+    <div class="b reveal-curtain"><p class="rv">Dubai &middot; Jebel Ali &middot; Sharjah &middot; Abu Dhabi</p><div class="tag">Moving cargo,<span id="rw" style="display:inline-block">on time.</span></div></div>
   </div>
 </header>
 
-<!-- Marquee -->
 <div class="mq"><div id="mq"></div></div>
 
-<!-- CINEMATIC CANVASES SEQUENCE (STORY SCRUBBING) -->
-<section class="sequence-wrap" id="scroll-story" aria-label="Ajana Shipping cinematic story">
+<section class="sequence-wrap" id="scroll-story">
   <div class="sequence-sticky">
     <canvas id="shippingCanvas" class="sequence-canvas"></canvas>
-    <div class="sequence-overlay"></div>
     <div class="sequence-progress"><i id="sequenceProgress"></i></div>
     <div class="sequence-copy">
-      <article class="sequence-step" data-start="0" data-end=".25">
-        <div class="sequence-index">01 / Origin</div>
-        <h2>FROM THE<br>UAE.</h2>
-        <p>Built around the Gulf's premier logistics hubs, Ajana links regional supply chains directly into world trade lanes.</p>
-      </article>
-      <article class="sequence-step" data-start=".25" data-end=".50">
-        <div class="sequence-index">02 / Connectivity</div>
-        <h2>PORT TO<br>PORT.</h2>
-        <p>Synchronized ocean freight, priority air cargo chartering, and multi-state land transport handled in one stream.</p>
-      </article>
-      <article class="sequence-step" data-start=".50" data-end=".75">
-        <div class="sequence-index">03 / Precision</div>
-        <h2>EVERY<br>HANDOFF.</h2>
-        <p>Real-time port tracking, automated customs clearance, and milestone notifications guarantee operational clarity.</p>
-      </article>
-      <article class="sequence-step" data-start=".75" data-end="1">
-        <div class="sequence-index">04 / Destination</div>
-        <h2>MOVE<br>FURTHER.</h2>
-        <p>A unified logistics engine built for enterprise shippers requiring reliability from booking to final delivery.</p>
-      </article>
+      <article class="sequence-step" data-start="0" data-end=".25"><h2>FROM THE<br>UAE.</h2><p>Linking Gulf supply chains into global corridors.</p></article>
+      <article class="sequence-step" data-start=".25" data-end=".50"><h2>PORT TO<br>PORT.</h2><p>Synchronized ocean & air freight in one stream.</p></article>
+      <article class="sequence-step" data-start=".50" data-end=".75"><h2>EVERY<br>HANDOFF.</h2><p>Live tracking and customs clarity from origin to door.</p></article>
+      <article class="sequence-step" data-start=".75" data-end="1"><h2>MOVE<br>FURTHER.</h2><p>Your connected logistics partner across the Middle East.</p></article>
     </div>
     <div class="sequence-card reveal-scale">
       <div class="spec"><span>Mode</span><b id="seqMode">SEA FREIGHT</b></div>
-      <div class="spec"><span>Origin Hub</span><b>JEBEL ALI (AEJEA)</b></div>
-      <div class="spec"><span>Telemetry</span><b id="seqStatus">IN TRANSIT</b></div>
-      <div class="spec"><span>Scroll Scrub</span><b id="seqPercent">00%</b></div>
-    </div>
-  </div>
-  <div class="sequence-fallback">
-    <div class="sequence-fallback-grid">
-      <article class="sequence-fallback-card reveal-up"><div class="num">01 / Origin</div><h3>From the<br>UAE.</h3><p>Built around the Gulf's strategic position, connecting cargo to global trade corridors.</p></article>
-      <article class="sequence-fallback-card reveal-up"><div class="num">02 / Connect</div><h3>Port to<br>port.</h3><p>Sea, air and land movement coordinated through one streamlined operating desk.</p></article>
-      <article class="sequence-fallback-card reveal-up"><div class="num">03 / Control</div><h3>Every<br>handoff.</h3><p>Documentation, customs and status remain transparent from booking to destination.</p></article>
-      <article class="sequence-fallback-card reveal-up"><div class="num">04 / Destination</div><h3>Move<br>further.</h3><p>One connected shipping partner for enterprise cargo moving through the UAE.</p></article>
+      <div class="spec"><span>Hub</span><b>JEBEL ALI (AEJEA)</b></div>
+      <div class="spec"><span>Status</span><b id="seqStatus">IN TRANSIT</b></div>
+      <div class="spec"><span>Progress</span><b id="seqPercent">00%</b></div>
     </div>
   </div>
 </section>
 
-<!-- About Section with Whole Page Reveal -->
-<section id="about" class="about" style="display:grid; grid-template-columns: 1fr 1fr; gap: clamp(24px, 5vw, 80px); align-items: end;">
-  <div class="reveal-up">
-    <h2>Placing cargo<br>first.</h2>
-  </div>
-  <div class="reveal-up">
-    <p class="rv" style="font-size: clamp(17px, 1.5vw, 22px); margin-bottom: 1em; opacity: 0.9;">Ajana Shipping Co. manages high-capacity cargo streams across the Gulf, Indian Subcontinent, Africa, and Europe. Single-point coordination simplifies bookings, customs filing, and port releases.</p>
-    <p class="rv" style="font-size: clamp(17px, 1.5vw, 22px); opacity: 0.75;">Transparent schedules, direct carrier allocations, and live status reporting ensure complete control over your freight.</p>
-  </div>
+<section id="about" style="display:grid; grid-template-columns:1fr 1fr; gap:50px">
+  <div class="reveal-up"><h2>Placing cargo<br>first.</h2></div>
+  <div class="reveal-up"><p class="rv">Single-point coordination handles ocean, air and customs with transparent status updates.</p></div>
 </section>
 
-<!-- ========================================================
-     SCROLL-BASED BENTO BOXES SECTION (PINNED & SCRUBBED REVEAL)
-     ======================================================== -->
-<section class="bento-scroll-wrap" id="bento-experience" aria-label="Interactive Scroll Bento Grid">
+<section class="bento-scroll-wrap" id="bento-experience">
   <div class="bento-sticky-container">
     <div class="bento-header reveal-up">
-      <div>
-        <div style="font-family: 'JetBrains Mono', monospace; font-size: 11px; text-transform: uppercase; color: var(--yel); letter-spacing: 0.15em; margin-bottom: 8px;">Logistics Matrix</div>
-        <h2 style="font-size: clamp(32px, 5vw, 70px); margin-bottom: 0;">Scroll-driven capabilities.</h2>
-      </div>
-      <div class="bento-scroll-scrubber">
-        <span>Bento Scrub</span>
-        <div class="bento-scroll-bar"><div class="bento-scroll-bar-fill" id="bentoBar"></div></div>
-        <span id="bentoPercent" style="color: var(--paper);">0%</span>
-      </div>
+      <h2>Scroll-driven capabilities.</h2>
+      <div style="font-family:'JetBrains Mono'; font-size:11px; color:var(--yel)">SCRUB: <span id="bentoPercent">0%</span></div>
     </div>
-
-    <!-- Bento Grid Container -->
-    <div class="bento-grid" id="bentoGrid">
-      
-      <!-- Card 1: Experience -->
-      <div class="t y c4 r2 bt reveal-scale" id="card1">
-        <small>Carrier Relationships</small>
-        <div class="n"><span class="cnt" data-n="15">0</span>+</div>
-        <p>Years of continuous ocean & air forwarding operations across major trade lanes.</p>
-        <div class="telemetry-container">
-          <div class="telemetry-item"><label>Volume</label><span>Tier-1</span></div>
-          <div class="telemetry-item"><label>Reliability</label><span>99.4%</span></div>
-          <div class="telemetry-item"><label>Space</label><span>Guaranteed</span></div>
-        </div>
-      </div>
-
-      <!-- Card 2: Containers Handled -->
-      <div class="t g c4 bt reveal-scale" id="card2">
-        <small>TEUs Shipped</small>
-        <div class="n"><span class="cnt" data-n="12000">0</span>+</div>
-        <p style="font-size: 13px; opacity: 0.75;">Handled seamlessly across ocean & overland corridors.</p>
-      </div>
-
-      <!-- Card 3: Ports Served -->
-      <div class="t d c4 bt dots dk reveal-scale" id="card3" style="background-color: var(--navy);">
-        <small>Direct Gateways</small>
-        <div class="n"><span class="cnt" data-n="60">0</span>+</div>
-        <p style="font-size: 13px; opacity: 0.85;">Connected commercial ports across 4 continents.</p>
-      </div>
-
-      <!-- Card 4: Live Visibility & Telemetry (Interactive SVG canvas scrub) -->
+    <div class="bento-grid">
+      <div class="t y c4 r2 bt reveal-scale" id="card1"><small>Relationships</small><div class="n"><span class="cnt" data-n="15">0</span>+</div><p>Years of forwarding ocean cargo.</p></div>
+      <div class="t g c4 bt reveal-scale" id="card2"><small>Volume</small><div class="n"><span class="cnt" data-n="12000">0</span>+</div><p>TEUs shipped.</p></div>
+      <div class="t d c4 bt reveal-scale" id="card3" style="background:var(--navy)"><small>Gateways</small><div class="n"><span class="cnt" data-n="60">0</span>+</div><p>Direct ports.</p></div>
       <div class="t d2 c8 bt reveal-scale" id="card4">
-        <small style="color: var(--yel);">Real-Time Intelligence</small>
         <h3>Door-to-door telemetry</h3>
-        <p>Milestone updates from vessel loading to terminal release, pushed directly to your dashboard.</p>
-        <div class="telemetry-container" style="max-width: 380px;">
-          <div class="telemetry-item"><label>Lat / Long</label><span id="bentoLat">25.026 N</span></div>
-          <div class="telemetry-item"><label>ETA Hub</label><span id="bentoEta">14:00 GST</span></div>
-          <div class="telemetry-item"><label>Customs</label><span style="color: #4CAF50;">CLEARED</span></div>
-        </div>
-        <svg viewBox="0 0 200 60" fill="none" stroke="#FFC72C" stroke-width="1.2">
-          <path class="pl" d="M0 50 C30 50 30 10 60 10 S100 50 130 30 S170 5 200 12"/>
-          <circle r="4" fill="#FFC72C" stroke="none" class="dot"/>
-        </svg>
+        <div class="telemetry-container"><div><label>Lat</label><span id="bentoLat">25.026 N</span></div><div><label>ETA</label><span id="bentoEta">14:00 GST</span></div><div><label>Customs</label><span style="color:#4CAF50">CLEARED</span></div></div>
       </div>
-
-      <!-- Card 5: Ocean Freight -->
-      <div class="t d c6 r2 bt reveal-scale" id="card5">
-        <small style="color: var(--yel);">Core Ocean Service</small>
-        <h3>Ocean Freight</h3>
-        <p>FCL and LCL shipping from Jebel Ali and Sharjah with weekly consolidations & competitive contract rates.</p>
-        <ul>
-          <li>Full Container Load (FCL) & LCL Consolidation</li>
-          <li>Refrigerated (Reefer) & Heavy Lift Cargo</li>
-          <li>Transshipment & Free Zone Warehousing</li>
-        </ul>
-        <svg viewBox="0 0 200 100" fill="none" stroke="#FFC72C" stroke-width="1">
-          <rect x="20" y="50" width="160" height="26" rx="2"/>
-          <path d="M40 50V35h40v15M90 50V25h50v25"/>
-          <path class="wv" d="M0 90q25-10 50 0t50 0 50 0 50 0"/>
-        </svg>
-      </div>
-
-      <!-- Card 6: Air Freight -->
-      <div class="t y c6 bt reveal-scale" id="card6">
-        <small>Express Cargo</small>
-        <h3>Air Freight</h3>
-        <p>Time-critical cargo from DXB and DWC with express airport-to-airport routing.</p>
-        <svg viewBox="0 0 200 80" fill="none" stroke="#0A1B3D" stroke-width="1">
-          <path class="pl" d="M10 65Q100 -5 190 25"/>
-          <path d="M190 25l-12 0 4-6z" fill="#0A1B3D"/>
-        </svg>
-      </div>
-
-      <!-- Card 7: Customs Clearance -->
-      <div class="t g c3 bt reveal-scale" id="card7">
-        <small>Documentation</small>
-        <h3>Customs Filing</h3>
-        <p>Import, export, and duty drawback handling end-to-end.</p>
-      </div>
-
-      <!-- Card 8: Warehousing -->
-      <div class="t d2 c3 bt reveal-scale" id="card8">
-        <small>Distribution</small>
-        <h3>3PL Storage</h3>
-        <p>Bonded warehousing, pick-and-pack & last-mile delivery.</p>
-      </div>
-
+      <div class="t d c6 r2 bt reveal-scale" id="card5"><h3>Ocean Freight</h3><p>FCL & LCL consolidations weekly.</p></div>
+      <div class="t y c6 bt reveal-scale" id="card6"><h3>Air Freight</h3><p>Time-critical air cargo from DXB/DWC.</p></div>
+      <div class="t g c3 bt reveal-scale" id="card7"><h3>Customs Filing</h3><p>End-to-end documentation.</p></div>
+      <div class="t d2 c3 bt reveal-scale" id="card8"><h3>3PL Storage</h3><p>Bonded warehousing & last-mile.</p></div>
     </div>
   </div>
 </section>
 
-<!-- Trade Lanes Section with Whole Page Reveal -->
 <section id="lanes" class="route">
-  <div class="reveal-up" style="font-family: 'JetBrains Mono', monospace; font-size: 11px; text-transform: uppercase; color: var(--yel); letter-spacing: 0.15em; margin-bottom: 12px;">Global Corridor Network</div>
   <h2 class="reveal-up">Trade lanes from the Gulf.</h2>
-  <svg viewBox="0 0 900 260" fill="none" stroke="#FFC72C" stroke-width="1.2" class="reveal-scale">
-    <path class="pl" d="M150 140 C300 20 500 20 660 110"/>
-    <path class="pl" d="M150 140 C320 230 520 220 720 170"/>
-    <path class="pl" d="M150 140 C250 70 330 60 420 50"/>
-    <g fill="#FFC72C" stroke="none">
-      <circle cx="150" cy="140" r="8"/>
-      <circle cx="660" cy="110" r="5"/>
-      <circle cx="720" cy="170" r="5"/>
-      <circle cx="420" cy="50" r="5"/>
-    </g>
-    <g fill="#F2F3F5" stroke="none" font-size="13" font-family="'Hanken Grotesk', sans-serif">
-      <text x="120" y="172">Dubai Hub</text>
-      <text x="650" y="96">Far East & Asia</text>
-      <text x="700" y="198">East Africa</text>
-      <text x="405" y="38">Europe & UK</text>
-    </g>
-  </svg>
   <div class="lanes">
-    <div class="reveal-curtain"><b>GCC Corridor</b>Dedicated road and feeder links across the Gulf</div>
-    <div class="reveal-curtain"><b>Indian Subcontinent</b>High-frequency sailings with fast transit times</div>
-    <div class="reveal-curtain"><b>Africa Hubs</b>Direct coverage for East & West African ports</div>
-    <div class="reveal-curtain"><b>Europe & UK</b>Weekly FCL sailings & express air cargo charter</div>
+    <div class="reveal-curtain"><b>GCC Corridor</b>Feeder links across Gulf</div>
+    <div class="reveal-curtain"><b>Indian Subcontinent</b>Fast transit sailings</div>
+    <div class="reveal-curtain"><b>Africa Hubs</b>Direct East/West Africa</div>
+    <div class="reveal-curtain"><b>Europe & UK</b>Weekly sailings & air</div>
   </div>
 </section>
 
-<!-- CTA Section -->
 <section id="contact" class="cta-big">
-  <div class="dots" id="d2"></div>
-  <h2 class="reveal-up">Let's move<br>your cargo.</h2>
-  <p class="reveal-up" style="font-size: clamp(18px, 2vw, 24px); max-width: 48ch; position: relative; z-index: 2; margin-top: 16px;">Send origin, destination, and cargo specs. Our logistics desk provides a customized rate quotation within 2 business hours.</p>
-  <div class="reveal-up"><a class="btn" href="mailto:info@ajanashipping.ae">Request a Freight Quote &rarr;</a></div>
+  <h2 class="reveal-up">Let's move your cargo.</h2>
+  <div class="reveal-up" style="margin-top:20px"><a class="btn" href="mailto:info@ajanashipping.ae">Request Rate Quotation &rarr;</a></div>
 </section>
 
-<!-- Footer -->
 <footer>
-  <div class="reveal-up">
-    <strong style="display: block; margin-bottom: 6px; font-weight: 500;">Ajana Shipping Co.</strong>
-    United Arab Emirates &middot; Global Logistics Desk
-  </div>
-  <div class="reveal-up">
-    <a href="#about">About Ajana</a>
-    <a href="#scroll-story">Cinematic Story</a>
-    <a href="#bento-experience">Logistics Matrix</a>
-    <a href="#lanes">Trade Lanes</a>
-  </div>
-  <div class="reveal-up">
-    <a href="mailto:info@ajanashipping.ae">info@ajanashipping.ae</a>
-    <a href="tel:+97140000000">+971 4 000 0000</a>
-  </div>
+  <div><strong>Ajana Shipping Co.</strong><br>UAE Global Desk</div>
+  <div><a href="#about">About</a><a href="#scroll-story">Story</a><a href="#bento-experience">Capabilities</a></div>
+  <div><a href="mailto:info@ajanashipping.ae">info@ajanashipping.ae</a></div>
 </footer>
 
-<!-- GSAP + ScrollTrigger Scripts -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
 
-<!-- 1. HIGH PERFORMANCE CANVAS SCRUBBING SYSTEM WITH PROCEDURAL FALLBACK -->
 <script>
+/* 1. Canvas Frame Engine */
 (function(){
-  const canvas = document.getElementById("shippingCanvas"); 
-  if(!canvas) return;
-  const ctx = canvas.getContext("2d", {alpha: false, desynchronized: true});
-  const COUNT = 120, PATH = "./frames/frame_", EXT = ".jpg", frames = [];
-  let progress = 0, raf = 0, hasImageFrames = false;
-
-  function pad(n){ return String(n).padStart(3, "0"); }
-  
-  function resize(){
-    const dpr = Math.min(window.devicePixelRatio || 1, 2);
-    const w = canvas.clientWidth, h = canvas.clientHeight;
-    canvas.width = Math.round(w * dpr);
-    canvas.height = Math.round(h * dpr);
-    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-    draw(frameIndex());
+  const canvas = document.getElementById("shippingCanvas"); if(!canvas) return;
+  const ctx = canvas.getContext("2d");
+  let progress = 0;
+  function resize(){ canvas.width = canvas.clientWidth; canvas.height = canvas.clientHeight; draw(); }
+  function draw(){
+    const w = canvas.width, h = canvas.height;
+    ctx.fillStyle = "#050D21"; ctx.fillRect(0,0,w,h);
+    ctx.strokeStyle = "rgba(255,199,44,0.15)"; ctx.beginPath();
+    for(let i=0;i<12;i++){ ctx.arc(w*0.6, h*0.5, 60*i*(0.8+progress*0.2), 0, Math.PI*2); } ctx.stroke();
+    ctx.save(); ctx.translate(w*0.6, h*0.5); ctx.rotate(progress*Math.PI*0.4);
+    ctx.fillStyle = "#FFC72C"; ctx.fillRect(-80, -30, 160, 60); ctx.restore();
   }
-
-  function frameIndex(){ return Math.round(progress * (COUNT - 1)); }
-
-  /* Procedural Canvas Renderer: Renders a futuristic 3D ocean vessel radar & grid when frame images are absent */
-  function drawProcedural(p){
-    const w = canvas.clientWidth, h = canvas.clientHeight;
-    ctx.fillStyle = "#050D21";
-    ctx.fillRect(0, 0, w, h);
-
-    // Dynamic Ocean Grid Perspective
-    ctx.save();
-    ctx.strokeStyle = "rgba(255, 199, 44, 0.12)";
-    ctx.lineWidth = 1;
-
-    const cx = w * 0.65, cy = h * 0.55;
-    const gridLines = 18;
-    for(let i = 0; i < gridLines; i++){
-      const angle = (i / gridLines) * Math.PI * 2 + (p * 0.5);
-      ctx.beginPath();
-      ctx.moveTo(cx, cy);
-      ctx.lineTo(cx + Math.cos(angle) * w, cy + Math.sin(angle) * h);
-      ctx.stroke();
-    }
-
-    // Concentric Radar Distance Rings
-    for(let r = 80; r < Math.max(w, h); r += 90){
-      ctx.beginPath();
-      ctx.arc(cx, cy, r * (0.8 + (p * 0.4) % 0.5), 0, Math.PI * 2);
-      ctx.strokeStyle = `rgba(19, 41, 90, ${0.4 - r/1000})`;
-      ctx.stroke();
-    }
-
-    // 3D Isometric Container Vessel Outline scrubbing with scroll progress
-    ctx.translate(cx, cy);
-    ctx.rotate(p * Math.PI * 0.3 - 0.2);
-
-    const shipWidth = 260 + p * 40;
-    const shipHeight = 80;
-    
-    // Vessel Hull Shadow & Glow
-    ctx.shadowColor = "#FFC72C";
-    ctx.shadowBlur = 25 * p;
-    ctx.fillStyle = "rgba(10, 27, 61, 0.95)";
-    ctx.strokeStyle = "#FFC72C";
-    ctx.lineWidth = 2;
-
-    // Hull Polygon
-    ctx.beginPath();
-    ctx.moveTo(-shipWidth/2, -shipHeight/2);
-    ctx.lineTo(shipWidth/3, -shipHeight/2);
-    ctx.lineTo(shipWidth/2 + 40, 0);
-    ctx.lineTo(shipWidth/3, shipHeight/2);
-    ctx.lineTo(-shipWidth/2, shipHeight/2);
-    ctx.closePath();
-    ctx.fill();
-    ctx.stroke();
-    ctx.shadowBlur = 0;
-
-    // Grid of Cargo Containers on Vessel Deck
-    const rows = 4, cols = 8;
-    const cw = 20, ch = 12;
-    for(let r = 0; r < rows; r++){
-      for(let c = 0; c < cols; c++){
-        const active = ((c + r * cols) / (rows * cols)) <= p * 1.2;
-        ctx.fillStyle = active ? ( (c % 2 === 0) ? "#FFC72C" : "#D8DCE3" ) : "rgba(255, 255, 255, 0.08)";
-        ctx.fillRect(-shipWidth/3 + c * (cw + 4), -shipHeight/3 + r * (ch + 4), cw, ch);
-        ctx.strokeStyle = "rgba(10, 27, 61, 0.5)";
-        ctx.strokeRect(-shipWidth/3 + c * (cw + 4), -shipHeight/3 + r * (ch + 4), cw, ch);
-      }
-    }
-
-    // Vessel Wake Waves
-    ctx.beginPath();
-    ctx.moveTo(-shipWidth/2, 0);
-    ctx.lineTo(-shipWidth/2 - 140 - p * 100, -80 - p * 30);
-    ctx.moveTo(-shipWidth/2, 0);
-    ctx.lineTo(-shipWidth/2 - 140 - p * 100, 80 + p * 30);
-    ctx.strokeStyle = "rgba(255, 199, 44, 0.4)";
-    ctx.lineWidth = 1.5;
-    ctx.stroke();
-
-    ctx.restore();
-  }
-
-  function draw(i){
-    const img = frames[i];
-    if(img && img.complete && img.naturalWidth > 0){
-      hasImageFrames = true;
-      const w = canvas.clientWidth, h = canvas.clientHeight;
-      const s = Math.max(w / img.naturalWidth, h / img.naturalHeight);
-      const dw = img.naturalWidth * s, dh = img.naturalHeight * s;
-      ctx.clearRect(0, 0, w, h);
-      ctx.drawImage(img, (w - dw)/2, (h - dh)/2, dw, dh);
-    } else if(!hasImageFrames) {
-      drawProcedural(progress);
-    }
-  }
-
-  function request(){
-    if(raf) return;
-    raf = requestAnimationFrame(() => {
-      raf = 0;
-      draw(frameIndex());
-    });
-  }
-
-  function updateScroll(){
-    const sec = document.getElementById("scroll-story");
-    if(!sec) return;
-    const r = sec.getBoundingClientRect();
-    progress = Math.max(0, Math.min(1, -r.top / Math.max(1, sec.offsetHeight - window.innerHeight)));
-
-    // Progress bar height
-    const progEl = document.getElementById("sequenceProgress");
-    if(progEl) progEl.style.height = (progress * 100) + "%";
-    
-    const seqPercent = document.getElementById("seqPercent");
-    if(seqPercent) seqPercent.textContent = Math.round(progress * 100).toString().padStart(2, "0") + "%";
-
-    const seqMode = document.getElementById("seqMode");
-    if(seqMode) seqMode.textContent = progress < 0.33 ? "OCEAN / FCL" : progress < 0.66 ? "AIR CHARTER" : "OVERLAND / DOOR";
-
-    const seqStatus = document.getElementById("seqStatus");
-    if(seqStatus) seqStatus.textContent = progress > 0.92 ? "ARRIVED HUB" : "IN TRANSIT";
-
+  function update(){
+    const sec = document.getElementById("scroll-story"), r = sec.getBoundingClientRect();
+    progress = Math.max(0, Math.min(1, -r.top / (sec.offsetHeight - innerHeight)));
+    if(document.getElementById("sequenceProgress")) document.getElementById("sequenceProgress").style.height = (progress*100)+"%";
+    if(document.getElementById("seqPercent")) document.getElementById("seqPercent").textContent = Math.round(progress*100)+"%";
     document.querySelectorAll(".sequence-step").forEach(el => {
-      const a = +el.dataset.start, b = +el.dataset.end;
-      const c = (a + b) / 2, range = (b - a) / 2;
-      const op = Math.max(0, 1 - Math.abs(progress - c) / range);
-      const y = (progress < c ? 1 - op : -(1 - op)) * 40;
-      el.style.opacity = op;
-      el.style.transform = `translateY(calc(-50% + ${y}px)) scale(${0.96 + op * 0.04})`;
+      const a = +el.dataset.start, b = +el.dataset.end, c = (a+b)/2, op = Math.max(0, 1-Math.abs(progress-c)/((b-a)/2));
+      el.style.opacity = op; el.style.transform = `translateY(calc(-50% + ${(progress<c?1-op:-(1-op))*30}px))`;
     });
-
-    request();
+    draw();
   }
-
-  // Pre-load frame sequence if available
-  for(let i = 0; i < COUNT; i++){
-    const img = new Image();
-    img.decoding = "async";
-    img.src = PATH + pad(i + 1) + EXT;
-    img.onload = () => { if(i === 0) draw(0); };
-    frames.push(img);
-  }
-
-  window.addEventListener("resize", resize);
-  window.addEventListener("scroll", updateScroll, {passive: true});
-  resize();
-  updateScroll();
+  addEventListener("resize", resize); addEventListener("scroll", update, {passive:true}); resize(); update();
 })();
-</script>
 
-<!-- 2. WHOLE-PAGE SCROLL REVEAL & INTERACTIVE BENTO SYSTEM -->
-<script>
+/* 2. Whole Page Reveals & Bento Scrubbing */
 (function(){
-  var calm = matchMedia('(prefers-reduced-motion: reduce)').matches;
-  var $ = function(s){ return document.querySelector(s); };
-  var $$ = function(s){ return document.querySelectorAll(s); };
-
-  // Page Top Scroll Progress Bar
-  window.addEventListener("scroll", function(){
-    var scrollTop = window.scrollY || document.documentElement.scrollTop;
-    var docHeight = document.documentElement.scrollHeight - window.innerHeight;
-    var scrollPercent = (scrollTop / docHeight) * 100;
-    var progressBar = document.getElementById("pageProgressBar");
-    if(progressBar) progressBar.style.width = scrollPercent + "%";
-  }, {passive: true});
-
-  // Setup Marquee Content
-  var items = ['Jebel Ali', 'Dubai', 'Sharjah', 'Abu Dhabi', 'Mundra', 'Colombo', 'Mombasa', 'Rotterdam', 'Shanghai', 'Hamburg', 'Singapore'];
-  var h = '';
-  for(var k = 0; k < 4; k++) {
-    items.forEach(function(x){ h += '<span>' + x + '</span><em>/</em>'; });
-  }
-  if($('#mq')) $('#mq').innerHTML = h;
-
-  // Loader simulation
-  var ld = document.createElement('div');
-  ld.id = 'ld';
-  ld.innerHTML = '<div class="ldn"><span id="lc">0</span>%</div><div class="ldb"><i></i></div><p>AJANA SHIPPING CO. &middot; INITIALIZING LOGISTICS CORE</p>';
-  document.body.appendChild(ld);
-
-  if(calm || !window.gsap) return;
+  if(!window.gsap) return;
   gsap.registerPlugin(ScrollTrigger);
 
-  // Split text utility for animation
-  function split(el){
-    (function walk(n){
-      Array.from(n.childNodes).forEach(function(c){
-        if(c.nodeType === 3){
-          var f = document.createDocumentFragment();
-          c.textContent.split(/(\s+)/).forEach(function(w){
-            if(!w || /^\s+$/.test(w)){
-              if(w) f.appendChild(document.createTextNode(w));
-              return;
-            }
-            var s = document.createElement('span');
-            s.className = 'w';
-            w.split('').forEach(function(ch){
-              var i = document.createElement('span');
-              i.className = 'ch';
-              i.textContent = ch;
-              s.appendChild(i);
-            });
-            f.appendChild(s);
-          });
-          c.replaceWith(f);
-        } else if(c.nodeType === 1 && c.tagName !== 'BR') {
-          walk(c);
-        }
-      });
-    })(el);
-    return el.querySelectorAll('.ch');
-  }
-
-  // Floating background containers in Hero
-  var hl = $('.hero .l'), conts = [];
-  if(hl) {
-    for(var i = 0; i < 12; i++){
-      var d = document.createElement('div');
-      var w = gsap.utils.random(30, 90);
-      var t = i % 3;
-      d.className = 'cont';
-      d.style.cssText = 'position:absolute; width:'+w+'px; height:'+w*0.48+'px; left:'+gsap.utils.random(5, 85)+'%; top:'+gsap.utils.random(10, 80)+'%; pointer-events:none; z-index:1; border-radius:3px; '+
-        (t===0 ? 'background:#FFC72C; opacity:0.8;' : t===1 ? 'background:#D8DCE3; opacity:0.5;' : 'border:1px solid #0A1B3D; opacity:0.6;');
-      d.dataset.z = gsap.utils.random(0.5, 2);
-      hl.appendChild(d);
-      conts.push(d);
-    }
-    conts.forEach(function(d){
-      gsap.to(d, {
-        x: gsap.utils.random(-50, 50),
-        y: gsap.utils.random(-40, 40),
-        rotation: gsap.utils.random(-20, 20),
-        duration: gsap.utils.random(3, 6),
-        yoyo: true,
-        repeat: -1,
-        ease: 'sine.inOut'
-      });
-    });
-  }
-
-  // Continuous ambient motion
-  gsap.to('#d1', { backgroundPosition: '24px 24px', duration: 3, ease: 'none', repeat: -1 });
-  gsap.to('#d2', { backgroundPosition: '24px -24px', duration: 3.5, ease: 'none', repeat: -1 });
-  gsap.to('nav .logo i', { rotation: 360, duration: 8, repeat: -1, ease: 'none' });
-  gsap.to('#mq', { xPercent: -25, duration: 25, ease: 'none', repeat: -1 });
-  gsap.to('.wv', { x: -20, duration: 2.2, ease: 'sine.inOut', yoyo: true, repeat: -1 });
-
-  // Scroll velocity skew effect for organic feel
-  var pr = { skew: 0 }, sk = gsap.quickSetter('.mq', 'skewX', 'deg'), cl = gsap.utils.clamp(-6, 6);
-  ScrollTrigger.create({
-    onUpdate: function(s){
-      var v = cl(s.getVelocity() / -300);
-      if(Math.abs(v) > Math.abs(pr.skew)){
-        pr.skew = v;
-        gsap.to(pr, { skew: 0, duration: 0.8, ease: 'power3', overwrite: true, onUpdate: function(){ sk(pr.skew); } });
-      }
-    }
+  window.addEventListener("scroll", () => {
+    const bar = document.getElementById("pageProgressBar");
+    if(bar) bar.style.width = ((window.scrollY)/(document.documentElement.scrollHeight-window.innerHeight)*100)+"%";
   });
 
-  // Rotating text in hero
-  var rw = $('#rw'), words = ['on time.', 'on budget.', 'on route.', 'every time.'], wi = 0;
-  function nextW(){
-    if(!rw) return;
-    gsap.to(rw, { yPercent: -110, duration: 0.5, ease: 'power3.in', onComplete: function(){
-      wi = (wi + 1) % words.length;
-      rw.textContent = words[wi];
-      gsap.fromTo(rw, { yPercent: 110 }, { yPercent: 0, duration: 0.6, ease: 'power3.out' });
-    }});
-  }
-  gsap.delayedCall(4, function loop(){ nextW(); gsap.delayedCall(2.5, loop); });
-
-  // Hero entrance timeline
-  function heroIn(){
-    var t = gsap.timeline({ defaults: { ease: 'expo.out' } });
-    var hc = split($('h1 .ln:nth-child(1)>span'));
-    var hc2 = split($('h1 .ln:nth-child(2)>span'));
-    
-    t.from(hc, { yPercent: 120, rotation: 8, duration: 1.2, stagger: 0.04 })
-     .from(hc2, { yPercent: 120, rotation: -8, duration: 1.2, stagger: 0.04 }, '-=1')
-     .from('.hero .r>div', { clipPath: 'inset(0 0 100% 0)', duration: 1, stagger: 0.15 }, '-=1.1')
-     .from('.hero-subtitle', { opacity: 0, y: 20, duration: 0.8 }, '-=0.7')
-     .from('.scroll-indicator', { opacity: 0, y: 15, duration: 0.8 }, '-=0.6')
-     .from(conts, { scale: 0, opacity: 0, duration: 1, stagger: 0.05, ease: 'back.out(1.8)' }, 0.2);
-  }
-
-  // Loader Timeline
-  var c = { v: 0 };
-  gsap.timeline({ onComplete: function(){ ld.remove(); } })
-   .to(c, { v: 100, duration: 1.4, ease: 'power2.inOut', onUpdate: function(){ $('#lc').textContent = Math.round(c.v); } })
-   .to('.ldb i', { width: '100%', duration: 1.4, ease: 'power2.inOut' }, 0)
-   .to('#ld .ldn, #ld p, .ldb', { opacity: 0, duration: 0.3 })
-   .to(ld, { yPercent: -100, duration: 0.9, ease: 'expo.inOut' })
-   .add(heroIn, '-=0.5');
-
-  // ========================================================
-  // WHOLE-PAGE INTERSECTION OBSERVER & GSAP SCROLL REVEALS
-  // ========================================================
-  
-  // 1. Heading Character Split Reveals on Scroll
-  $$('h2').forEach(function(e){
-    var ch = split(e);
-    gsap.from(ch, {
-      yPercent: 115,
-      rotation: 6,
-      duration: 1,
-      stagger: 0.03,
-      ease: 'expo.out',
-      scrollTrigger: { trigger: e, start: 'top 85%' }
-    });
+  // Split reveal text
+  document.querySelectorAll("h2, .rv").forEach(el => {
+    gsap.from(el, { y: 40, opacity: 0, duration: 0.9, scrollTrigger: { trigger: el, start: "top 85%" } });
   });
 
-  // 2. Paragraph Split Reveals on Scroll
-  $$('.about p, .rv').forEach(function(e){
-    var ch = split(e);
-    gsap.from(ch, {
-      yPercent: 110,
-      duration: 0.7,
-      stagger: 0.005,
-      ease: 'power3.out',
-      scrollTrigger: { trigger: e, start: 'top 88%' }
-    });
-  });
+  // Intersection Observer reveals
+  const obs = new IntersectionObserver(e => e.forEach(x => { if(x.isIntersecting) x.target.classList.add("is-revealed"); }), {threshold: 0.15});
+  document.querySelectorAll(".reveal-up, .reveal-curtain, .reveal-scale").forEach(el => obs.observe(el));
 
-  // 3. Generic Reveal Elements (`.reveal-up`, `.reveal-curtain`, `.reveal-scale`)
-  const revealElements = $$('.reveal-up, .reveal-curtain, .reveal-scale');
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if(entry.isIntersecting) {
-        entry.target.classList.add('is-revealed');
-      }
-    });
-  }, { threshold: 0.15 });
-
-  revealElements.forEach(el => observer.observe(el));
-
-  // ========================================================
-  // BENTO SCROLL-DRIVEN STACKING & TRANSFORMATIONS SCRUBBER
-  // ========================================================
+  // Bento Scroll Scrubbing
   const bentoWrap = document.getElementById("bento-experience");
-  if(bentoWrap && !matchMedia('(max-width: 900px)').matches) {
-    
-    // Create ScrollTrigger pinning for the Bento section
+  if(bentoWrap) {
     ScrollTrigger.create({
-      trigger: bentoWrap,
-      start: "top top",
-      end: "bottom bottom",
-      scrub: 1,
+      trigger: bentoWrap, start: "top top", end: "bottom bottom", scrub: 1,
       onUpdate: (self) => {
         const p = self.progress;
-
-        // Update Bento Scroll Bar & Progress Counter
-        const bar = document.getElementById("bentoBar");
-        const perc = document.getElementById("bentoPercent");
-        if(bar) bar.style.width = (p * 100) + "%";
-        if(perc) perc.textContent = Math.round(p * 100) + "%";
-
-        // Dynamic Telemetry Data Updates inside Bento Card 4
-        const lat = document.getElementById("bentoLat");
-        const eta = document.getElementById("bentoEta");
-        if(lat) lat.textContent = (25.026 + p * 4.2).toFixed(3) + " N";
-        if(eta) eta.textContent = Math.floor(12 + p * 8) + ":" + Math.floor((p * 360) % 60).toString().padStart(2, "0") + " GST";
-
-        // Scroll Scrub individual Bento Card transforms & staggered entry
-        const cards = [
-          { id: "#card1", start: 0.0, end: 0.25 },
-          { id: "#card2", start: 0.1, end: 0.35 },
-          { id: "#card3", start: 0.2, end: 0.45 },
-          { id: "#card4", start: 0.35, end: 0.65 },
-          { id: "#card5", start: 0.5, end: 0.8 },
-          { id: "#card6", start: 0.6, end: 0.9 },
-          { id: "#card7", start: 0.7, end: 0.95 },
-          { id: "#card8", start: 0.75, end: 1.0 }
-        ];
-
-        cards.forEach((c) => {
-          const el = document.querySelector(c.id);
+        if(document.getElementById("bentoPercent")) document.getElementById("bentoPercent").textContent = Math.round(p*100)+"%";
+        if(document.getElementById("bentoLat")) document.getElementById("bentoLat").textContent = (25.026 + p*4.2).toFixed(3) + " N";
+        const cards = ["#card1","#card2","#card3","#card4","#card5","#card6","#card7","#card8"];
+        cards.forEach((id, idx) => {
+          const el = document.querySelector(id);
           if(!el) return;
-
-          // Compute individual card progress (0 to 1)
-          let cp = (p - c.start) / (c.end - c.start);
-          cp = Math.max(0, Math.min(1, cp));
-
-          // Calculate 3D card tilt, opacity, rotation, and translation on scroll
-          const scale = 0.85 + cp * 0.15;
-          const translateY = (1 - cp) * 60;
-          const rotateX = (1 - cp) * 15;
-          const opacity = Math.min(1, cp * 2.5);
-
-          el.style.opacity = opacity;
-          el.style.transform = `translateY(${translateY}px) scale(${scale}) rotateX(${rotateX}deg)`;
-          
-          if(cp > 0.5) {
-            el.classList.add("scrolled-active");
-          } else {
-            el.classList.remove("scrolled-active");
-          }
+          const cp = Math.max(0, Math.min(1, (p - idx*0.08)/0.4));
+          el.style.opacity = Math.min(1, cp*2);
+          el.style.transform = `translateY(${(1-cp)*50}px) scale(${0.88 + cp*0.12}) rotateX(${(1-cp)*12}deg)`;
         });
       }
-    });
-
-    // 3D Card Hover & Magnetic Parallax Effect on Bento Cards
-    $$('.t').forEach(function(card){
-      card.addEventListener('mousemove', function(e){
-        var r = card.getBoundingClientRect();
-        var x = (e.clientX - r.left) / r.width - 0.5;
-        var y = (e.clientY - r.top) / r.height - 0.5;
-        gsap.to(card, {
-          rotationY: x * 12,
-          rotationX: -y * 12,
-          transformPerspective: 1000,
-          duration: 0.4,
-          ease: 'power2.out'
-        });
-      });
-      card.addEventListener('mouseleave', function(){
-        gsap.to(card, {
-          rotationX: 0,
-          rotationY: 0,
-          duration: 0.8,
-          ease: 'elastic.out(1, 0.4)'
-        });
-      });
     });
   }
 
-  // Counter Number Scrubbing on Scroll
-  $$('.cnt').forEach(function(e){
-    var o = { v: 0 }, n = +e.dataset.n;
-    gsap.to(o, {
-      v: n,
-      duration: 2.2,
-      ease: 'power2.out',
-      scrollTrigger: { trigger: e, start: 'top 92%' },
-      onUpdate: function(){
-        e.textContent = Math.round(o.v).toLocaleString();
-      }
-    });
+  // Count animations
+  document.querySelectorAll('.cnt').forEach(e => {
+    let o = {v:0}, n = +e.dataset.n;
+    gsap.to(o, { v: n, duration: 2, scrollTrigger: { trigger: e, start: 'top 90%' }, onUpdate: () => e.textContent = Math.round(o.v).toLocaleString() });
   });
-
-  // Animated SVG Routes on Scroll
-  $$('.pl').forEach(function(p){
-    var L = p.getTotalLength();
-    gsap.fromTo(p, 
-      { strokeDasharray: L, strokeDashoffset: L },
-      { strokeDashoffset: 0, duration: 2.5, ease: 'power2.inOut', scrollTrigger: { trigger: p, start: 'top 88%' } }
-    );
-  });
-
-  // Traveling Dot on Bento Visibility Path
-  var dot = $('.dot'), pl = $('.t .pl');
-  if(dot && pl){
-    var P2 = { t: 0 };
-    gsap.to(P2, {
-      t: 1, duration: 4.5, repeat: -1, ease: 'none',
-      onUpdate: function(){
-        var q = pl.getPointAtLength(P2.t * pl.getTotalLength());
-        dot.setAttribute('cx', q.x);
-        dot.setAttribute('cy', q.y);
-      }
-    });
-  }
-
-  // Custom Cursor
-  if(matchMedia('(hover: hover)').matches){
-    var cu = document.createElement('div');
-    cu.id = 'cur';
-    document.body.appendChild(cu);
-    var qx = gsap.quickTo(cu, 'x', { duration: 0.3, ease: 'power3' });
-    var qy = gsap.quickTo(cu, 'y', { duration: 0.3, ease: 'power3' });
-    addEventListener('mousemove', function(e){ qx(e.clientX); qy(e.clientY); });
-
-    $$('a, .t, .btn').forEach(function(el){
-      el.addEventListener('mouseenter', function(){ gsap.to(cu, { scale: 2.8, duration: 0.3 }); });
-      el.addEventListener('mouseleave', function(){ gsap.to(cu, { scale: 1, duration: 0.3 }); });
-    });
-  }
-
 })();
 </script>
 </body>
